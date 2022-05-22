@@ -1,5 +1,6 @@
 import { Menu } from 'antd'
 import React, { useContext } from 'react'
+import { Link } from 'react-router-dom';
 import UserContext from '../contexts/user'
 
 function NavBar() {
@@ -35,19 +36,27 @@ function NavBar() {
 }
 const publicMenu = [
   {
-    label: 'Home',
+    label: (
+      <Link to={"/"}>Home</Link>
+    ),
     key: 'home',
   },
   {
-    label: 'Dashboard',
+    label: (
+      <Link to={"/dashboard"}>Dashboard</Link>
+    ),
     key: 'dashboard'
   },
   {
-    label: 'Login',
+    label: (
+      <Link to={"/login"}>Login</Link>
+    ),
     key: 'login'
   },
   {
-    label: 'Register',
+    label: (
+      <Link to={"/register"}>Register</Link>
+    ),
     key: 'register'
   },
   {
@@ -58,19 +67,27 @@ const publicMenu = [
 ];
 const userMenu = [
   {
-    label: 'Home',
+    label: (
+      <Link to={"/home"}>Home</Link>
+    ),
     key: 'home',
   },
   {
-    label: 'Dashboard',
+    label: (
+      <Link to={"/dashboard"}>Dashboard</Link>
+    ),
     key: 'dashboard'
   },
   {
-    label: 'Favourite',
+    label: (
+      <Link to={"/favourite"}>Favourite</Link>
+    ),
     key: 'favourite'
   },
   {
-    label: 'Log out',
+    label: (
+      <Link to={"/"}>Log out</Link>
+    ),
     key: 'logout'
   },
   {
@@ -81,19 +98,27 @@ const userMenu = [
 ];
 const staffMenu = [
   {
-    label: 'Home',
+    label: (
+      <Link to={"/home"}>Home</Link>
+    ),
     key: 'home',
   },
   {
-    label: 'Dashboard',
+    label: (
+      <Link to={"/dashboard"}>Dashboard</Link>
+    ),
     key: 'dashboard'
   },
   {
-    label: 'Create dog entry',
-    key: 'createDogEntry'
+    label: (
+      <Link to={"/managedogs"}>Manage dogs</Link>
+    ),
+    key: 'managedogs'
   },
   {
-    label: 'Log out',
+    label: (
+      <Link to={"/"}>Log out</Link>
+    ),
     key: 'logout'
   },
   {
