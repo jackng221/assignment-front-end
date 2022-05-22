@@ -10,7 +10,6 @@ class RegisterForm extends React.Component {
             selected: props.selected
         };
         this.onFinish = this.onFinish.bind(this);
-
     }
 
     static contextType = UserContext;
@@ -30,7 +29,6 @@ class RegisterForm extends React.Component {
             .then(status)
             .then(json)
             .then(data => {
-                // For you TODO: display success message and/or redirect
                 console.log(data);
                 alert(`Success`);
                 this.context.regComplete();
@@ -38,11 +36,10 @@ class RegisterForm extends React.Component {
             })
             .catch(errorResponse => {
                 console.error(errorResponse);
-                alert(`Error: ${errorResponse}`);
+                alert("Registration failed");
                 this.context.enableRequest();
             });
     }
-
     render() {
         if (this.context.canRequest === false) {
             return (

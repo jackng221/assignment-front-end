@@ -17,7 +17,7 @@ class App extends React.Component {
     this.state = {
       user:
       {
-        loggedIn: false, password: "", role: ""
+        loggedIn: false, username: "", password: "", role: ""
       },
       canRequest: true
     }
@@ -28,18 +28,17 @@ class App extends React.Component {
     this.disableRequest = this.disableRequest.bind(this);
   }
   login(user) {
-    user.loggedIn = true;
-    user.password = user.password;
-    user.role = user.role;
     this.setState({
-      user: user
+      user: {
+        loggedIn: true, username: user.username, password: user.password, role: user.role
+      }
     }, ()=>{console.log("Set user to context ", this.state.user);}
     );
   }
   logout() {
     this.setState({
       user: {
-        loggedIn: false, password: "", role: ""
+        loggedIn: false, username: "", password: "", role: ""
       }
     }, ()=>{console.log("User is logged out from the app context");}
     );
@@ -64,8 +63,6 @@ class App extends React.Component {
   render() {
     const context = {
       user: this.state.user,
-      loggedIn: this.state.user.loggedIn,
-      role: this.state.user.role,
       canRequest: this.state.canRequest,
 
       login: this.login,

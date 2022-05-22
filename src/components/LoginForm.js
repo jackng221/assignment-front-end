@@ -31,7 +31,7 @@ class LoginForm extends React.Component {
             })
             .catch(error => {
                 console.log(`Error ${error}`);
-                alert(`${username} login failed !`);
+                alert(`${username} login failed`);
                 this.context.enableRequest();
             });
     }
