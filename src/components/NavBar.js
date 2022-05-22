@@ -1,5 +1,5 @@
 import { Menu } from 'antd'
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { Link } from 'react-router-dom';
 import UserContext from '../contexts/user'
 
@@ -8,27 +8,33 @@ function NavBar() {
   const [currentMenu, setCurrentMenu] = React.useState(publicMenu);
   const [currentItem, setCurrentItem] = React.useState('home');
 
-  // switch (context.user) {
-  //   case "user":
-  //     setCurrentMenu(userMenu);
-  //     break;
-  //   case "staff":
-  //     setCurrentMenu(staffMenu);
-  //     break;
-  //   default:
-  //     setCurrentMenu(publicMenu);
-  //     break;
-  // }
   const onClick = (e) => {
     switch (e.key) {
       case "logout":
         context.logout();
+        setCurrentItem("home");
         break;
       default:
         setCurrentItem(e.key);
         break;
     }
   }
+  useEffect(() => {
+    switch (context.user.role) {
+      case "user":
+        setCurrentMenu(userMenu);
+        setCurrentItem("home");
+        break;
+      case "staff":
+        setCurrentMenu(staffMenu);
+        setCurrentItem("home");
+        break;
+      default:
+        setCurrentMenu(publicMenu);
+        setCurrentItem("home");
+        break;
+    }
+  }, [context.user.role])
 
   return (
     <Menu onClick={onClick} selectedKeys={[currentItem]} mode="horizontal" items={currentMenu} />
@@ -68,7 +74,7 @@ const publicMenu = [
 const userMenu = [
   {
     label: (
-      <Link to={"/home"}>Home</Link>
+      <Link to={"/"}>Home</Link>
     ),
     key: 'home',
   },
@@ -99,7 +105,7 @@ const userMenu = [
 const staffMenu = [
   {
     label: (
-      <Link to={"/home"}>Home</Link>
+      <Link to={"/"}>Home</Link>
     ),
     key: 'home',
   },

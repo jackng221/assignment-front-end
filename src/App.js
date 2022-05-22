@@ -17,34 +17,43 @@ class App extends React.Component {
     this.state = {
       user:
       {
-        loggedIn: false, password: "", registerOK: false, userID: ""
+        loggedIn: false, password: "", role: ""
       }
     }
     this.login = this.login.bind(this);
     this.logout = this.logout.bind(this);
-    this.regComplete = this.regComplete.bind(this);
+    //this.regComplete = this.regComplete.bind(this);
   }
   login(user) {
-    user.loggedIn = true;
-    user.passward = user.password;
-    this.setState({ user: user });
-    console.log("User state is now set to ", this.state.user);
+    this.setState({
+      user: {
+        loggedIn: true,
+        password: user.password,
+        role: user.role
+      }
+    });
+    console.log("Set user to context ", this.state.user);
   }
   logout() {
-    this.setState({ user: { loggedIn: false } });
+    this.setState({
+      user: {
+        loggedIn: false, password: "", role: ""
+      }
+    });
     console.log("User is logged out from the app context");
   }
-  regComplete() {
-    this.setState({ user: { registerOK: true } });
-    console.log("Registration OK");
-  }
+  // regComplete() {
+  //   this.setState({ user: { registerOK: true } });
+  //   console.log("Registration OK");
+  // }
 
   render() {
     const context = {
       user: this.state.user,
       login: this.login,
       logout: this.logout,
-      regComplete: this.regComplete
+      //regComplete: this.regComplete
+      role: this.state.user.role
     }
     return (
       <div className="App">

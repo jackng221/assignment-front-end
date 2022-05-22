@@ -5,7 +5,7 @@ import LoginForm from '../components/LoginForm'
 function Login() {
     return (
         <div>
-            <Space direction="horizontal" style={{width: "100%", justifyContent: "center"}}>
+            <Space style={{width: "100%", justifyContent: "center"}}>
                 <Typography.Title >Login form</Typography.Title>
             </Space>
             <LoginForm />

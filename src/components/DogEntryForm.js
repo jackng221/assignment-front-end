@@ -1,11 +1,18 @@
-import { Form, Input, Select } from 'antd'
+import { Button, Form, Input, Select } from 'antd'
 import React from 'react'
 
 function DogEntryForm() {
     return (
         <Form
-            name="Create form"
-            autoComplete="off">
+            name="Add dog form"
+            labelCol={{
+                span: 6,
+            }}
+            wrapperCol={{
+                span: 12,
+            }}
+            autoComplete="off"
+            >
             <Form.Item label="Name" name="name" rules={[
                 {
                     required: true,
@@ -52,14 +59,23 @@ function DogEntryForm() {
                     message: 'Missing facility location',
                 },
             ]}>
-                <Select defaultValue={"locationA"}>
-                    <Option value="locationA">locationA</Option>
-                    <Option value="locationB">locationB</Option>
-                    <Option value="locationC">locationC</Option>
+                <Select>
+                    <Select.Option value="locationA">locationA</Select.Option>
+                    <Select.Option value="locationB">locationB</Select.Option>
+                    <Select.Option value="locationC">locationC</Select.Option>
                 </Select>
             </Form.Item>
             <Form.Item label="Image URL" name="imageurl">
                 <Input />
+            </Form.Item>
+            <Form.Item
+                wrapperCol={{
+                    offset: 6,
+                    span: 18,
+                }}>
+                <Button type="primary" htmlType="submit">
+                    Submit
+                </Button>
             </Form.Item>
         </Form>
     )
