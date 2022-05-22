@@ -23,15 +23,12 @@ function NavBar() {
     switch (context.user.role) {
       case "user":
         setCurrentMenu(userMenu);
-        setCurrentItem("home");
         break;
       case "staff":
         setCurrentMenu(staffMenu);
-        setCurrentItem("home");
         break;
       default:
         setCurrentMenu(publicMenu);
-        setCurrentItem("home");
         break;
     }
   }, [context.user.role])

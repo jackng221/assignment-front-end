@@ -11,6 +11,7 @@ class LoginForm extends React.Component {
     static contextType = UserContext;
 
     login(values) {
+        this.context.disableRequest();
         const { username, password } = values;
         console.log(`logging in user: ${username}`)
         fetch('https://assignmentbackend.jackng221.repl.co/api/v1/users/login', {
@@ -24,19 +25,25 @@ class LoginForm extends React.Component {
             .then(user => {
                 user.password = password;
                 this.context.login(user);
+                alert(`Welcome ${user.username}`);
                 console.log(user.username + " Logged in successfully");
+                this.context.enableRequest();
             })
             .catch(error => {
                 console.log(`Error ${error}`);
                 alert(`${username} login failed !`);
+                this.context.enableRequest();
             });
     }
     render() {
-        if (this.context.user.logginIn === true) {
+        if (this.context.user.loggedIn === true){
+            return(
+                <Typography.Title>You are logged in</Typography.Title>
+            )
+        }
+        else if (this.context.canRequest === false) {
             return (
-                <Typography.Title>
-                    Welcome {this.context.user.username} !
-                </Typography.Title>
+                <Typography.Title>Please wait</Typography.Title>
             )
         }
         else {

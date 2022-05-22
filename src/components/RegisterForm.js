@@ -1,48 +1,99 @@
-import { Button, Form, Input, Select } from 'antd'
+import { Button, Form, Input, Typography } from 'antd'
 import React from 'react'
+import UserContext from '../contexts/user';
+import {status, json} from '../utilities/requestHandlers'
 
-function RegisterForm() {
-    return (
-        <Form
-            name="Register form"
-            labelCol={{
-                span: 6,
-            }}
-            wrapperCol={{
-                span: 12,
-            }}
-            autoComplete="off"
-        >
-            <Form.Item label="Username" name="username" rules={[
-                {
-                    required: true,
-                    message: 'Missing username',
-                },
-            ]}>
-                <Input />
-            </Form.Item>
-            <Form.Item label="Password" name="password" rules={[
-                {
-                    required: true,
-                    message: 'Missing password',
-                },
-            ]}>
-                <Input />
-            </Form.Item>
-            <Form.Item label="Sign up code" name="signupcode">
-                <Input />
-            </Form.Item>
-            <Form.Item
-                wrapperCol={{
-                    offset: 6,
-                    span: 18,
-                }}>
-                <Button type="primary" htmlType='submit'>
-                    Submit
-                </Button>
-            </Form.Item>
-        </Form>
-    )
+class RegisterForm extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            selected: props.selected
+        };
+        this.onFinish = this.onFinish.bind(this);
+
+    }
+
+    static contextType = UserContext;
+
+    onFinish = (values) => {
+        this.context.disableRequest();
+        console.log('Received values of form: ', values);
+        const { confirm, ...data } = values;  // ignore the 'confirm' value
+        console.log("Json  ", JSON.stringify(data))
+        fetch('https://assignmentbackend.jackng221.repl.co/api/v1/users', {
+            method: "POST",
+            body: JSON.stringify(data),
+            headers: {
+                "Content-Type": "application/json"
+            }
+        })
+            .then(status)
+            .then(json)
+            .then(data => {
+                // For you TODO: display success message and/or redirect
+                console.log(data);
+                alert(`Success`);
+                this.context.regComplete();
+                this.context.enableRequest();
+            })
+            .catch(errorResponse => {
+                console.error(errorResponse);
+                alert(`Error: ${errorResponse}`);
+                this.context.enableRequest();
+            });
+    }
+
+    render() {
+        if (this.context.canRequest === false) {
+            return (
+                <Typography.Title>Please wait</Typography.Title>
+            )
+        }
+        else {
+            return (
+                <Form
+                    name="Register form"
+                    labelCol={{
+                        span: 6,
+                    }}
+                    wrapperCol={{
+                        span: 12,
+                    }}
+                    autoComplete="off"
+                    onFinish={this.onFinish}
+                >
+                    <Form.Item label="Username" name="username" rules={[
+                        {
+                            required: true,
+                            message: 'Missing username',
+                        },
+                    ]}>
+                        <Input />
+                    </Form.Item>
+                    <Form.Item label="Password" name="password" rules={[
+                        {
+                            required: true,
+                            message: 'Missing password',
+                        },
+                    ]}>
+                        <Input />
+                    </Form.Item>
+                    <Form.Item label="Sign up code" name="signupcode">
+                        <Input />
+                    </Form.Item>
+                    <Form.Item
+                        wrapperCol={{
+                            offset: 6,
+                            span: 18,
+                        }}>
+                        <Button type="primary" htmlType='submit'>
+                            Submit
+                        </Button>
+                    </Form.Item>
+                </Form>
+            )
+        }
+    }
 }
 
 export default RegisterForm
