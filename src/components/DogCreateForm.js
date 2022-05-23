@@ -16,6 +16,9 @@ class DogCreateForm extends React.Component {
 
     onFinish = (values) => {
         this.context.disableRequest();
+        if (values["imageurl"] === "") {
+            values["imageurl"] = null
+        };
         console.log('Received values of form: ', values);
         const data = values;
         console.log("Json  ", JSON.stringify(data))

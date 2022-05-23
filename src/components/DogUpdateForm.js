@@ -16,6 +16,9 @@ class DogUpdateForm extends React.Component {
 
     onFinish = (values) => {
         this.context.disableRequest();
+        if (values["imageurl"] === "") {
+            values["imageurl"] = null
+        };
         console.log('Received values of form: ', values);
         const ID = values["id"];
         const { id, ...data } = values;
