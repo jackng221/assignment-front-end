@@ -1,9 +1,9 @@
-import { Button, Form, Input, Typography } from 'antd'
+import { Button, Form, InputNumber, Typography } from 'antd'
 import React from 'react'
 import UserContext from '../contexts/user';
-import {status, json} from '../utilities/requestHandlers'
+import { status, json } from '../utilities/requestHandlers'
 
-class RegisterForm extends React.Component {
+class DogDeleteForm extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -17,13 +17,16 @@ class RegisterForm extends React.Component {
     onFinish = (values) => {
         this.context.disableRequest();
         console.log('Received values of form: ', values);
-        const data = values;
+        const ID = values["id"];
+        const { id, ...data } = values;
         console.log("Json  ", JSON.stringify(data))
-        fetch('https://assignmentbackend.jackng221.repl.co/api/v1/users', {
-            method: "POST",
+        fetch('https://assignmentbackend.jackng221.repl.co/api/v1/dogs/' + ID, {
+            method: "DELETE",
             body: JSON.stringify(data),
             headers: {
-                "Content-Type": "application/json"
+                "Authorization": "Basic " + window.btoa(this.context.user.username + ":" + this.context.user.password),
+                "Content-Type": "application/json",
+                "Accept": "application/json"
             }
         })
             .then(status)
@@ -31,12 +34,11 @@ class RegisterForm extends React.Component {
             .then(data => {
                 console.log(data);
                 alert(`Success`);
-                this.context.regComplete();
                 this.context.enableRequest();
             })
             .catch(errorResponse => {
                 console.error(errorResponse);
-                alert("Registration failed");
+                alert("Creation failed");
                 this.context.enableRequest();
             });
     }
@@ -49,7 +51,7 @@ class RegisterForm extends React.Component {
         else {
             return (
                 <Form
-                    name="Register form"
+                    name="Add dog form"
                     labelCol={{
                         span: 6,
                     }}
@@ -59,31 +61,20 @@ class RegisterForm extends React.Component {
                     autoComplete="off"
                     onFinish={this.onFinish}
                 >
-                    <Form.Item label="Username" name="username" rules={[
+                    <Form.Item label="ID" name="id" rules={[
                         {
                             required: true,
-                            message: 'Missing username',
+                            message: 'Missing id',
                         },
                     ]}>
-                        <Input />
-                    </Form.Item>
-                    <Form.Item label="Password" name="password" rules={[
-                        {
-                            required: true,
-                            message: 'Missing password',
-                        },
-                    ]}>
-                        <Input />
-                    </Form.Item>
-                    <Form.Item label="Sign up code" name="signupcode">
-                        <Input />
+                        <InputNumber precision={0} />
                     </Form.Item>
                     <Form.Item
                         wrapperCol={{
                             offset: 6,
                             span: 18,
                         }}>
-                        <Button type="primary" htmlType='submit'>
+                        <Button type="primary" htmlType="submit">
                             Submit
                         </Button>
                     </Form.Item>
@@ -93,4 +84,4 @@ class RegisterForm extends React.Component {
     }
 }
 
-export default RegisterForm
+export default DogDeleteForm
