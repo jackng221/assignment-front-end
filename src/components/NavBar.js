@@ -46,12 +46,6 @@ const publicMenu = [
   },
   {
     label: (
-      <Link to={"/dashboard"}>Dashboard</Link>
-    ),
-    key: 'dashboard'
-  },
-  {
-    label: (
       <Link to={"/login"}>Login</Link>
     ),
     key: 'login'

@@ -1,4 +1,4 @@
-import { Button, Form, InputNumber, Typography } from 'antd'
+import { Button, Form, InputNumber, message, Typography } from 'antd'
 import React from 'react'
 import UserContext from '../contexts/user';
 import { status, json } from '../utilities/requestHandlers'
@@ -33,7 +33,7 @@ class DogDeleteForm extends React.Component {
             .then(json)
             .then(data => {
                 console.log(data);
-                alert(`Success`);
+                message.info(`Success`);
                 this.context.enableRequest();
             })
             .catch(errorResponse => {
@@ -67,7 +67,7 @@ class DogDeleteForm extends React.Component {
                             message: 'Missing id',
                         },
                     ]}>
-                        <InputNumber precision={0} />
+                        <InputNumber min={1} precision={0} />
                     </Form.Item>
                     <Form.Item
                         wrapperCol={{

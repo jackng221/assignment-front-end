@@ -1,12 +1,13 @@
-import { Typography } from 'antd'
+import { Space, Typography } from 'antd'
 import React from 'react'
-import DogList from '../components/DogList'
 import DogSearch from '../components/DogSearch'
 
 function Home() {
   return (
     <div>
-      <Typography.Title>Welcome to The Canine Shelter</Typography.Title>
+      <Space style={{ width: "100%", justifyContent: "center" }}>
+        <Typography.Title>Welcome to The Canine Shelter</Typography.Title>
+      </Space>
       <DogSearch />
     </div>
   )

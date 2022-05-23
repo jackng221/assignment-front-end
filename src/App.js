@@ -7,7 +7,6 @@ import UserContext from './contexts/user';
 import Home from './pages/Home';
 import ManageDogs from './pages/ManageDogs';
 import RegisterUser from './pages/RegisterUser';
-import Dashboard from './pages/Dashboard';
 import Login from './pages/Login';
 import Dog from './pages/Dog';
 
@@ -79,7 +78,6 @@ class App extends React.Component {
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/dog" element={<Dog/>} />
-              <Route path="/dashboard" element={<Dashboard/>} />
               <Route path="/managedogs" element={<ManageDogs/>} />
               <Route path="/register" element={<RegisterUser/>} />
               <Route path="/login" element={<Login/>} />

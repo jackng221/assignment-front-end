@@ -1,4 +1,4 @@
-import { Button, Form, Input, InputNumber, Select, Typography } from 'antd'
+import { AutoComplete, Button, Form, Input, InputNumber, message, Select, Typography } from 'antd'
 import React from 'react'
 import UserContext from '../contexts/user';
 import { status, json } from '../utilities/requestHandlers'
@@ -34,7 +34,7 @@ class DogCreateForm extends React.Component {
             .then(json)
             .then(data => {
                 console.log(data);
-                alert(`Success`);
+                message.info(`Success`);
                 this.context.enableRequest();
             })
             .catch(errorResponse => {
@@ -76,7 +76,7 @@ class DogCreateForm extends React.Component {
                             message: 'Missing age',
                         },
                     ]}>
-                        <InputNumber precision={0} />
+                        <InputNumber min={0} precision={0} />
                     </Form.Item>
                     <Form.Item label="Weight" name="weight" rules={[
                         {
@@ -84,7 +84,7 @@ class DogCreateForm extends React.Component {
                             message: 'Missing weight',
                         },
                     ]}>
-                        <InputNumber formatter={value => `${value}kg`} />
+                        <InputNumber min={0} formatter={value => `${value}kg`} />
                     </Form.Item>
                     <Form.Item label="Sex" name="sex" rules={[
                         {
@@ -93,8 +93,8 @@ class DogCreateForm extends React.Component {
                         },
                     ]}>
                         <Select>
-                            <Select.Option value="M">M</Select.Option>
-                            <Select.Option value="F">F</Select.Option>
+                            <Select.Option value="Boy (M)">Boy (M)</Select.Option>
+                            <Select.Option value="Girl (F)">Girl (F)</Select.Option>
                         </Select>
                     </Form.Item>
                     <Form.Item label="Breed" name="breed" rules={[
@@ -103,7 +103,13 @@ class DogCreateForm extends React.Component {
                             message: 'Missing breed',
                         },
                     ]}>
-                        <Input />
+                        <AutoComplete>
+                            <AutoComplete.Option key="goldenretriever" value="Golden Retriever">Golden Retriever</AutoComplete.Option>
+                            <AutoComplete.Option key="bulldog" value="Bulldog">Bulldog</AutoComplete.Option>
+                            <AutoComplete.Option key="havenese" value="Havanese">Havanese</AutoComplete.Option>
+                            <AutoComplete.Option key="pembrokewelshcorgi" value="Pembroke Welsh Corgi">Pembroke Welsh Corgi</AutoComplete.Option>
+                            <AutoComplete.Option key="bostonterrier" value="Boston Terrier">Boston Terrier</AutoComplete.Option>
+                        </AutoComplete>
                     </Form.Item>
                     <Form.Item label="Location" name="location" rules={[
                         {
@@ -117,7 +123,7 @@ class DogCreateForm extends React.Component {
                             <Select.Option value="locationC">locationC</Select.Option>
                         </Select>
                     </Form.Item>
-                    <Form.Item label="Image URL" name="imageurl">
+                    <Form.Item label="Image filename" name="imagefilename">
                         <Input />
                     </Form.Item>
                     <Form.Item

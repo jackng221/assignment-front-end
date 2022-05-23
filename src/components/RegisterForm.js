@@ -1,4 +1,4 @@
-import { Button, Form, Input, Typography } from 'antd'
+import { Button, Form, Input, message, Typography } from 'antd'
 import React from 'react'
 import UserContext from '../contexts/user';
 import {status, json} from '../utilities/requestHandlers'
@@ -30,7 +30,7 @@ class RegisterForm extends React.Component {
             .then(json)
             .then(data => {
                 console.log(data);
-                alert(`Success`);
+                message.info(`Success`);
                 this.context.regComplete();
                 this.context.enableRequest();
             })

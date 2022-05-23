@@ -1,7 +1,7 @@
-import { Button, Form, Input, Typography } from 'antd'
+import { Button, Form, Input, message, Space, Typography } from 'antd'
 import React from 'react'
 import UserContext from '../contexts/user';
-import {status, json} from '../utilities/requestHandlers'
+import { status, json } from '../utilities/requestHandlers'
 
 class LoginForm extends React.Component {
     constructor(props) {
@@ -25,7 +25,7 @@ class LoginForm extends React.Component {
             .then(user => {
                 user.password = password;
                 this.context.login(user);
-                alert(`Welcome ${user.username}`);
+                message.info(`Welcome ${user.username}`);
                 console.log(user.username + " Logged in successfully");
                 this.context.enableRequest();
             })
@@ -36,14 +36,18 @@ class LoginForm extends React.Component {
             });
     }
     render() {
-        if (this.context.user.loggedIn === true){
-            return(
-                <Typography.Title>You are logged in</Typography.Title>
+        if (this.context.user.loggedIn === true) {
+            return (
+                <Space style={{ width: "100%", justifyContent: "center" }}>
+                    <Typography.Title>You are logged in</Typography.Title>
+                </Space>
             )
         }
         else if (this.context.canRequest === false) {
             return (
-                <Typography.Title>Please wait</Typography.Title>
+                <Space style={{ width: "100%", justifyContent: "center" }}>
+                    <Typography.Title>Please wait</Typography.Title>
+                </Space>
             )
         }
         else {

@@ -20,7 +20,7 @@ function DogSearch() {
         console.log("value ", value)
         console.log("press ", `${press}`)
         let urlPath = "https://assignmentbackend.jackng221.repl.co/api/v1/dogs";
-        switch (`${press}`){
+        switch (`${press}`) {
             case "age":
                 searchType = "number";
                 urlPath += `/search/?type=${searchType}&fields=${fields}&sfields=${press}&q=${value}`
@@ -62,7 +62,7 @@ function DogSearch() {
     }
     return (
         <>
-            <Col span={16}>
+            <Col offset={4} span={16}>
                 <Search placeholder="Search dogs"
                     allowClear
                     enterButton="Search"
@@ -76,15 +76,16 @@ function DogSearch() {
                 </Select>
                 {isSearchOK && <Table dataSource={dogsData}>
                     <Column title="ID" dataIndex="id" key="id" />
-                    <Column title="Name" dataIndex="name" key="name" render={text => <Link to="/dog">{text}</Link>} />
+                    <Column title="Name" dataIndex="name" key="name" render={
+                        (text, row) => <Link to="/dog" state={row.id} >{text}</Link>
+                    } />
                     <Column title="Age" dataIndex="age" key="age" />
-                    <Column title="Weight" dataIndex="weight" key="weight" />
+                    <Column title="Weight (kg)" dataIndex="weight" key="weight" />
                     <Column title="Sex" dataIndex="sex" key="sex" />
                     <Column title="Breed" dataIndex="breed" key="breed" />
                     <Column title="Location" dataIndex="location" key="location" />
                 </Table>}
             </Col>
-
         </>
     );
 }
