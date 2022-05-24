@@ -1,4 +1,4 @@
-import { Button, Form, InputNumber, message, Typography } from 'antd'
+import { Button, Form, InputNumber, message, Space, Typography } from 'antd'
 import React from 'react'
 import UserContext from '../contexts/user';
 import { status, json } from '../utilities/requestHandlers'
@@ -45,7 +45,9 @@ class DogDeleteForm extends React.Component {
     render() {
         if (this.context.canRequest === false) {
             return (
-                <Typography.Title>Please wait</Typography.Title>
+                <Space direction="horizontal" style={{ width: "100%", justifyContent: "center" }}>
+                    <Typography.Title >Please wait</Typography.Title>
+                </Space>
             )
         }
         else {

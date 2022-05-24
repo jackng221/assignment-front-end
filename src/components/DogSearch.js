@@ -36,19 +36,21 @@ function DogSearch() {
 
         console.log("urlPath ", urlPath)
 
-        return (fetch(`${urlPath}`, {
-            method: "GET"
-        })
-            .then(status)
-            .then(json)
-            .then(data => {
-                console.log("user return  ", JSON.stringify(data));
-                console.log("user data  ", data);
-                setDogsData(data);
-                setSearch(true);
-                value = "";
+        return (
+            fetch(`${urlPath}`, {
+                method: "GET"
             })
-            .catch(err => console.log("Error fetching users", err))
+                .then(status)
+                .then(json)
+                .then(data => {
+                    console.log("user return  ", JSON.stringify(data));
+                    console.log("user data  ", data);
+                    let newData = data.map((data) => ({...data, key: data.id}));    //gives unique id
+                    setDogsData(newData);
+                    setSearch(true);
+                    value = "";
+                })
+                .catch(err => console.log("Error fetching users", err))
         )
     }
 

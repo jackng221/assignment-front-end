@@ -10,13 +10,14 @@ export default class DogCard extends Component {
             return (
                 <Card
                     style={{ width: 320 }}
-                    cover={<img alt="doggie" src={require(`../img/${this.props.imagefilename}`)} />}
+                    cover={<img alt="doggie" src={(`https://assignmentbackend.jackng221.repl.co${this.props.imagefile}`)} />}
                     hoverable={true}
                     actions={[
                         //to do
                     ]}
                 >
                     <Card.Meta title={this.props.name} />
+                    <Card.Meta description={`ID: ${this.props.id}`} />
                     <Card.Meta description={`Age: ${this.props.age}`} />
                     <Card.Meta description={`Weight: ${this.props.weight}`} />
                     <Card.Meta description={`Sex: ${this.props.sex}`} />
@@ -33,6 +34,7 @@ export default class DogCard extends Component {
                     hoverable={true}
                 >
                     <Card.Meta title={this.props.name} />
+                    <Card.Meta description={`ID: ${this.props.id}`} />
                     <Card.Meta description={`Age: ${this.props.age}`} />
                     <Card.Meta description={`Weight: ${this.props.weight}`} />
                     <Card.Meta description={`Sex: ${this.props.sex}`} />
