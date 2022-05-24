@@ -96,12 +96,6 @@ const staffMenu = [
   },
   {
     label: (
-      <Link to={"/dashboard"}>Dashboard</Link>
-    ),
-    key: 'dashboard'
-  },
-  {
-    label: (
       <Link to={"/managedogs"}>Manage dogs</Link>
     ),
     key: 'managedogs'
