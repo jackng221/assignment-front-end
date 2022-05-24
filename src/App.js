@@ -9,6 +9,7 @@ import ManageDogs from './pages/ManageDogs';
 import RegisterUser from './pages/RegisterUser';
 import Login from './pages/Login';
 import Dog from './pages/Dog';
+import Favourite from './pages/Favourite';
 
 class App extends React.Component {
   constructor(props) {
@@ -78,6 +79,7 @@ class App extends React.Component {
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/dog" element={<Dog/>} />
+              <Route path="/favourite" element={<Favourite/>}/>
               <Route path="/managedogs" element={<ManageDogs/>} />
               <Route path="/register" element={<RegisterUser/>} />
               <Route path="/login" element={<Login/>} />

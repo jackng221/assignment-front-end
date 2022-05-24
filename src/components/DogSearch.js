@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Input } from 'antd';
+import { Input, Space } from 'antd';
 import { status, json } from '../utilities/requestHandlers';
 import { Table, Select, Col } from 'antd';
 import { Link } from 'react-router-dom';
@@ -8,15 +8,16 @@ const { Column } = Table;
 const { Search } = Input;
 
 function DogSearch() {
-
     const [press, setPress] = useState("");
     const [dogsData, setDogsData] = useState([]);
-    const [isSearchOK, setSearch] = useState(false);
+    const [isSearchOK, setIsSearchOk] = useState(false);
+    const [isSearching, setIsSearching] = useState(false);
 
     const fields = "id%name%age%weight%sex%location%breed"
     var searchType = "";
 
     const onSearch = value => {
+        setIsSearching(true);
         console.log("value ", value)
         console.log("press ", `${press}`)
         let urlPath = "https://assignmentbackend.jackng221.repl.co/api/v1/dogs";
@@ -47,7 +48,8 @@ function DogSearch() {
                     console.log("user data  ", data);
                     let newData = data.map((data) => ({...data, key: data.id}));    //gives unique id
                     setDogsData(newData);
-                    setSearch(true);
+                    setIsSearchOk(true);
+                    setIsSearching(false);
                     value = "";
                 })
                 .catch(err => console.log("Error fetching users", err))
@@ -87,6 +89,9 @@ function DogSearch() {
                     <Column title="Breed" dataIndex="breed" key="breed" />
                     <Column title="Location" dataIndex="location" key="location" />
                 </Table>}
+                {isSearching && <Space direction="horizontal" style={{ width: "100%", justifyContent: "center" }}>
+                    <h2>Loading doggies...</h2>
+                </Space>}
             </Col>
         </>
     );

@@ -71,12 +71,6 @@ const userMenu = [
   },
   {
     label: (
-      <Link to={"/dashboard"}>Dashboard</Link>
-    ),
-    key: 'dashboard'
-  },
-  {
-    label: (
       <Link to={"/favourite"}>Favourite</Link>
     ),
     key: 'favourite'
