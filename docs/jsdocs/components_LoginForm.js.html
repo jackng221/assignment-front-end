@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: components/LoginForm.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: components/LoginForm.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+* A module to submit a form to login as a user.
+* @module components/LoginForm
+* @author Jack
+* @see Login for the page to display this module.
+*/
+
+import { Button, Form, Input, message, Space, Typography } from 'antd'
+import React from 'react'
+import UserContext from '../contexts/user';
+import { status, json } from '../utilities/requestHandlers'
+
+class LoginForm extends React.Component {
+    constructor(props) {
+        super(props);
+        this.login = this.login.bind(this);
+    }
+    static contextType = UserContext;
+
+    login(values) {
+        this.context.disableRequest();
+        const { username, password } = values;
+        console.log(`logging in user: ${username}`)
+        fetch('https://assignmentbackend.jackng221.repl.co/api/v1/users/login', {
+            method: "POST",
+            headers: {
+                "Authorization": "Basic " + window.btoa(username + ":" + password)
+            }
+        })
+            .then(status)
+            .then(json)
+            .then(user => {
+                user.password = password;
+                this.context.login(user);
+                message.info(`Welcome ${user.username}`);
+                console.log(user.username + " Logged in successfully");
+                this.context.enableRequest();
+            })
+            .catch(error => {
+                console.log(`Error ${error}`);
+                alert(`${username} login failed`);
+                this.context.enableRequest();
+            });
+    }
+    render() {
+        if (this.context.user.loggedIn === true) {
+            return (
+                &lt;Space style={{ width: "100%", justifyContent: "center" }}>
+                    &lt;Typography.Title>You are logged in&lt;/Typography.Title>
+                &lt;/Space>
+            )
+        }
+        else if (this.context.canRequest === false) {
+            return (
+                &lt;Space style={{ width: "100%", justifyContent: "center" }}>
+                    &lt;Typography.Title>Please wait&lt;/Typography.Title>
+                &lt;/Space>
+            )
+        }
+        else {
+            return (
+                &lt;Form
+                    name="Login form"
+                    labelCol={{
+                        span: 6,
+                    }}
+                    wrapperCol={{
+                        span: 12,
+                    }}
+                    autoComplete="off"
+                    onFinish={this.login}
+                >
+                    &lt;Form.Item label="Username" name="username" rules={[
+                        {
+                            required: true,
+                            message: 'Missing username',
+                        },
+                    ]}>
+                        &lt;Input />
+                    &lt;/Form.Item>
+                    &lt;Form.Item label="Password" name="password" rules={[
+                        {
+                            required: true,
+                            message: 'Missing password',
+                        },
+                    ]}>
+                        &lt;Input />
+                    &lt;/Form.Item>
+                    &lt;Form.Item
+                        wrapperCol={{
+                            offset: 6,
+                            span: 18,
+                        }}>
+                        &lt;Button type="primary" htmlType="submit">
+                            Submit
+                        &lt;/Button>
+                    &lt;/Form.Item>
+                &lt;/Form>
+            )
+        }
+    }
+}
+
+export default LoginForm</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-components_DogCard.html">components/DogCard</a></li><li><a href="module-components_DogCreateForm.html">components/DogCreateForm</a></li><li><a href="module-components_DogDeleteForm.html">components/DogDeleteForm</a></li><li><a href="module-components_DogSearch.html">components/DogSearch</a></li><li><a href="module-components_DogUpdateForm.html">components/DogUpdateForm</a></li><li><a href="module-components_DogView.html">components/DogView</a></li><li><a href="module-components_LoginForm.html">components/LoginForm</a></li><li><a href="module-components_NavBar.html">components/NavBar</a></li><li><a href="module-components_RegisterForm.html">components/RegisterForm</a></li><li><a href="module-contexts_user.html">contexts/user</a></li><li><a href="module-utilities_requestHandlers.html">utilities/requestHandlers</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.10</a> on Wed May 25 2022 06:45:48 GMT+0800 (香港標準時間)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

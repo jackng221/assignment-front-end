@@ -1,3 +1,10 @@
+/**
+* A module to submit a form to delete a dog entry.
+* @module components/DogDeleteForm
+* @author Jack
+* @see ManageDogs for the page to display this module.
+*/
+
 import { Button, Form, InputNumber, message, Space, Typography } from 'antd'
 import React from 'react'
 import UserContext from '../contexts/user';

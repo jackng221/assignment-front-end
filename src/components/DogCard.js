@@ -1,3 +1,10 @@
+/**
+* A module to render a dog card.
+* @module components/DogCard
+* @author Jack
+* @see DogView for the layout to display this module.
+*/
+
 import { Card } from 'antd'
 import React, { Component } from 'react'
 import UserContext from '../contexts/user';

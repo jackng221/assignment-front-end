@@ -1,3 +1,10 @@
+/**
+* A module to view details of a dog.
+* @module components/DogView
+* @author Jack
+* @see Dog for the page to display this module.
+*/
+
 import { Col, Row, Space } from 'antd';
 import React, { Component } from 'react'
 import DogCard from './DogCard';

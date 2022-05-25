@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: components/DogSearch.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: components/DogSearch.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+* A module to search and display a table of dog entries.
+* @module components/DogSearch
+* @author Jack
+* @see Home for the page to display this module.
+*/
+
+import React, { useState } from 'react';
+import { Input, Space } from 'antd';
+import { status, json } from '../utilities/requestHandlers';
+import { Table, Select, Col } from 'antd';
+import { Link } from 'react-router-dom';
+
+const { Column } = Table;
+const { Search } = Input;
+
+function DogSearch() {
+    const [press, setPress] = useState("");
+    const [dogsData, setDogsData] = useState([]);
+    const [isSearchOK, setIsSearchOk] = useState(false);
+    const [isSearching, setIsSearching] = useState(false);
+
+    const fields = "id%name%age%weight%sex%location%breed"
+    var searchType = "";
+
+    const onSearch = value => {
+        setIsSearching(true);
+        console.log("value ", value)
+        console.log("press ", `${press}`)
+        let urlPath = "https://assignmentbackend.jackng221.repl.co/api/v1/dogs";
+        switch (`${press}`) {
+            case "age":
+                searchType = "number";
+                urlPath += `/search/?type=${searchType}&amp;fields=${fields}&amp;sfields=${press}&amp;q=${value}`
+                break;
+            case "sex":
+            case "breed":
+                searchType = "text";
+                urlPath += `/search/?type=${searchType}&amp;fields=${fields}&amp;sfields=${press}&amp;q=${value}`
+                break;
+            default:
+                urlPath += `/search/?type=${searchType}&amp;fields=${fields}`
+        }
+
+        console.log("urlPath ", urlPath)
+
+        return (
+            fetch(`${urlPath}`, {
+                method: "GET"
+            })
+                .then(status)
+                .then(json)
+                .then(data => {
+                    console.log("user return  ", JSON.stringify(data));
+                    console.log("user data  ", data);
+                    let newData = data.map((data) => ({...data, key: data.id}));    //gives unique id
+                    setDogsData(newData);
+                    setIsSearchOk(true);
+                    setIsSearching(false);
+                    value = "";
+                })
+                .catch(err => console.log("Error fetching users", err))
+        )
+    }
+
+    const { Option } = Select;
+
+    function handleChange(value) {
+        //message.info("Pls. enter at least three characters to search by email or username otherwise leave the input empty")
+
+        setPress(value);
+        console.log(`selected ${value}`);
+    }
+    return (
+        &lt;>
+            &lt;Col offset={4} span={16}>
+                &lt;Search placeholder="Search dogs"
+                    allowClear
+                    enterButton="Search"
+                    size="large"
+                    onSearch={onSearch} />
+                &lt;Select defaultValue="all" style={{ width: 120 }} onChange={handleChange}>
+                    &lt;Option value="age">age&lt;/Option>
+                    &lt;Option value="sex">sex&lt;/Option>
+                    &lt;Option value="breed">breed&lt;/Option>
+                    &lt;Option value="all">Get all-without filter&lt;/Option>
+                &lt;/Select>
+                {isSearchOK &amp;&amp; &lt;Table dataSource={dogsData}>
+                    &lt;Column title="ID" dataIndex="id" key="id" />
+                    &lt;Column title="Name" dataIndex="name" key="name" render={
+                        (text, row) => &lt;Link to="/dog" state={row.id} >{text}&lt;/Link>
+                    } />
+                    &lt;Column title="Age" dataIndex="age" key="age" />
+                    &lt;Column title="Weight (kg)" dataIndex="weight" key="weight" />
+                    &lt;Column title="Sex" dataIndex="sex" key="sex" />
+                    &lt;Column title="Breed" dataIndex="breed" key="breed" />
+                    &lt;Column title="Location" dataIndex="location" key="location" />
+                &lt;/Table>}
+                {isSearching &amp;&amp; &lt;Space direction="horizontal" style={{ width: "100%", justifyContent: "center" }}>
+                    &lt;h2>Loading doggies...&lt;/h2>
+                &lt;/Space>}
+            &lt;/Col>
+        &lt;/>
+    );
+}
+
+export default DogSearch;
+
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-components_DogCard.html">components/DogCard</a></li><li><a href="module-components_DogCreateForm.html">components/DogCreateForm</a></li><li><a href="module-components_DogDeleteForm.html">components/DogDeleteForm</a></li><li><a href="module-components_DogSearch.html">components/DogSearch</a></li><li><a href="module-components_DogUpdateForm.html">components/DogUpdateForm</a></li><li><a href="module-components_DogView.html">components/DogView</a></li><li><a href="module-components_LoginForm.html">components/LoginForm</a></li><li><a href="module-components_NavBar.html">components/NavBar</a></li><li><a href="module-components_RegisterForm.html">components/RegisterForm</a></li><li><a href="module-contexts_user.html">contexts/user</a></li><li><a href="module-utilities_requestHandlers.html">utilities/requestHandlers</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.10</a> on Wed May 25 2022 06:45:48 GMT+0800 (香港標準時間)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

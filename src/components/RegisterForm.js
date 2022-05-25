@@ -1,3 +1,10 @@
+/**
+* A module to submit a form to register a user account.
+* @module components/RegisterForm
+* @author Jack
+* @see RegisterUser for the page to display this module.
+*/
+
 import { Button, Form, Input, message, Typography } from 'antd'
 import React from 'react'
 import UserContext from '../contexts/user';

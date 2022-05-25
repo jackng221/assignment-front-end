@@ -1,3 +1,10 @@
+/**
+* A module to submit a form to login as a user.
+* @module components/LoginForm
+* @author Jack
+* @see Login for the page to display this module.
+*/
+
 import { Button, Form, Input, message, Space, Typography } from 'antd'
 import React from 'react'
 import UserContext from '../contexts/user';

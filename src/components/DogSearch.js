@@ -1,3 +1,10 @@
+/**
+* A module to search and display a table of dog entries.
+* @module components/DogSearch
+* @author Jack
+* @see Home for the page to display this module.
+*/
+
 import React, { useState } from 'react';
 import { Input, Space } from 'antd';
 import { status, json } from '../utilities/requestHandlers';

@@ -1,3 +1,10 @@
+/**
+* A module to provide a navigation bar to navigate between site pages.
+* @module components/NavBar
+* @author Jack
+* @see App for the parent to display this module.
+*/
+
 import { Menu } from 'antd'
 import React, { useContext, useEffect } from 'react'
 import { Link } from 'react-router-dom';
