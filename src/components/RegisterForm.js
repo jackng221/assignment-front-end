@@ -5,7 +5,7 @@
 * @see RegisterUser for the page to display this module.
 */
 
-import { Button, Form, Input, message, Typography } from 'antd'
+import { Button, Form, Input, message, Space, Typography } from 'antd'
 import React from 'react'
 import UserContext from '../contexts/user';
 import {status, json} from '../utilities/requestHandlers'
@@ -50,7 +50,9 @@ class RegisterForm extends React.Component {
     render() {
         if (this.context.canRequest === false) {
             return (
-                <Typography.Title>Please wait</Typography.Title>
+                <Space direction="horizontal" style={{ width: "100%", justifyContent: "center" }}>
+                    <Typography.Title>Please wait</Typography.Title>
+                </Space>
             )
         }
         else {

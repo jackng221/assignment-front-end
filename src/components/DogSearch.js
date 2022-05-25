@@ -59,7 +59,13 @@ function DogSearch() {
                     setIsSearching(false);
                     value = "";
                 })
-                .catch(err => console.log("Error fetching users", err))
+                .catch(err => {
+                    console.log("Error fetching dogs", err)
+                    let newData = [];
+                    setDogsData(newData);
+                    setIsSearchOk(true);
+                    setIsSearching(false);
+                })
         )
     }
 
