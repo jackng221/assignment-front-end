@@ -37,7 +37,7 @@ export default class DogCard extends Component {
             return (
                 <Card
                     style={{ width: 320 }}
-                    cover={<img alt="doggie" src={require(`../img/${this.props.imagefilename}`)} />}
+                    cover={<img alt="doggie" src={(`https://assignmentbackend.jackng221.repl.co/${this.props.imagefile}`)} />}
                     hoverable={true}
                 >
                     <Card.Meta title={this.props.name} />
