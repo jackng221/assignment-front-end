@@ -1,3 +1,7 @@
+#WebAPI frontend
+
+ReactJS based front end of webAPI for accessing and managing PostgreSQL database, stylized with Material-UI
+
 signupcode: secretsignupcode \
 jsdoc: docs/jsdocs/index.html
 
